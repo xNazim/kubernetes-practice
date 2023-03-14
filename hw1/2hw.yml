@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: nazim
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["echo", "Hello World!"] 
+  - name: nginx
+    image: nginx
+    ports: 
+    - containerPort: 8181

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wow
+  namespace: nazim
+  labels:
+    app: wow-label
+spec:
+  containers:
+  - name: 3-hw
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "while true; do sleep 10; done"

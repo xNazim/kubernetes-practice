@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  namespace: nazim
+spec:
+  selector:
+    app: mysqldb
+  ports:
+  - port: 3306
+    targetPort: 3306
+
+---
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: mysql
+  namespace: nazim
+provisioner: kubernetes.io/gce-pd
+parameters: 
+  type: pd-standard
+  replication-type: none
+
+---
+
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: mysql-pvc
+#   namespace: nazim
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   volumeMode: Filesystem
+#   resources:
+#     requests:
+#       storage: 1.5Gi
+#   storageClassName: mysql
+
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: nazim
+  name: mysql-configmap
+data:
+  MYSQL_USER: user
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: nazim
+  name: mysql-secret
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: bXlzcWxwYXNzd29yZA==
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-state-app
+  namespace: nazim
+spec:
+  selector:
+    matchLabels:
+      app: mysql-state
+  serviceName: "mysql-svc"
+  replicas: 3
+  minReadySeconds: 10
+  template: 
+    metadata:
+      labels:
+        app: mysql-state
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: MYSQL_USER
+
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-pvc
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: mysql
+      resources:
+        requests:
+          storage: 1Gi
+

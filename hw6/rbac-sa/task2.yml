@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nazimsa
+  namespace: nazim
+automountServiceAccountToken: true
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: nazim
+  name: pod-reader
+rules:
+  - apiGroups:
+    - ""
+    resources: 
+    - "pods"
+    verbs:
+    - "get"
+    - "watch"
+    - "list"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pod-reader
+  namespace: nazim
+subjects:
+- kind: ServiceAccount
+  name: nazimsa
+  namespace: nazim
+roleRef:
+  kind: ClusterRole
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rbac-pod
+  namespace: nazim
+  labels:
+    name: rbac-pod
+spec:
+  serviceAccount: nazimsa
+  containers:
+  - name: rbac-pod
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80

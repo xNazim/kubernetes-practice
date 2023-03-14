@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-8hw
+spec:
+  selector:
+    app: nginx1
+  ports:
+  - port: 8080
+    targetPort: 80

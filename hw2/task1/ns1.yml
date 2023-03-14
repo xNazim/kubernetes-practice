@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: testnz
+  name: nginx-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-dep1
+  template:
+    metadata:
+      labels:
+        app: nginx-dep1
+    spec:
+      containers:
+      - name: nginx-app
+        image: nginx
+        ports:
+        - containerPort: 8080

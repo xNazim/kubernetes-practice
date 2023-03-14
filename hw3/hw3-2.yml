@@ -1,0 +1,24 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: fastnz
+  namespace: nazim
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+  replication-type: none
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fast-pvc-nz
+  namespace: nazim
+spec:
+  storageClassName: fastnz
+  resources:
+    requests:
+      storage: 100Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce

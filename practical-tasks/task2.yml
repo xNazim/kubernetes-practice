@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: safarinz-pv
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: ''
+  hostPath:
+    path: /home/kubernetes/volumes/data
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: safarinz-pvc
+  namespace: project-tiger-nz
+spec:
+  storageClassName: ''
+  resources:
+    requests:
+      storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: safarinz
+  namespace: project-tiger-nz
+spec:
+  selector:
+    matchLabels:
+      app: safarinz
+  template:
+    metadata:
+      labels:
+        app: safarinz
+    spec:
+      containers:
+      - name: safarinz
+        image: httpd:2.4.41-alpine
+        securityContext:
+          runAsUser: 0
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: safari-vol
+          mountPath: /tmp/safari/data
+      volumes:
+      - name: safari-vol
+        persistentVolumeClaim:
+          claimName: safarinz-pvc
+
+
+

@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: nazim
+  name: postgres
+type: Opaque
+data:
+  password: PFBhc3N3b3JkPg==
+  username: bmF6aW0=
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: nazim
+  name: pvc-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard-rwo
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: nazim
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  containers:
+  - name: postgres
+    image: postgres:15.2-alpine
+    env: 
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: postgres
+          key: password
+    - name: PGUSER
+      valueFrom:
+        secretKeyRef:
+          name: postgres
+          key: username
+    ports:
+      - containerPort: 5432
+    volumeMounts: 
+    - mountPath: /var/lib/postgres
+      name: pvc-vol
+  volumes:
+  - name: pvc-vol
+    persistentVolumeClaim:
+      claimName: pvc-claim
+

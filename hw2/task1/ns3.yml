@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: devnz
+  name: pvc-demo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard-rwo
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  namespace: devnz
+  name: mysql
+spec:
+  containers:
+    - name: mysql
+      image: mysql
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+      ports:
+        - containerPort: 3306
+      volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: pvc-demo-vol
+  volumes:
+    - name: pvc-demo-vol
+      persistentVolumeClaim:
+       claimName: pvc-demo

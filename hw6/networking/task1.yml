@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netpolicy
+  namespace: nazim
+spec:
+  selector:
+    matchLabels:
+      app: dep
+  template:
+    metadata:
+      labels:
+        app: dep
+    spec:
+      containers:
+      - name: dep
+        image: nginx
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-deployment
+  namespace: nazim
+spec:
+  podSelector:
+    matchLabels:
+      app: dep
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: dep
+      ports:
+        - protocol: TCP
+          port: 80
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: dep
+      ports:
+        - protocol: TCP
+          port: 80
+

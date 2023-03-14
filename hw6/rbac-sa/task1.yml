@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nazimsa
+  namespace: nazim
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sa-pod
+  namespace: nazim
+  labels:
+    name: sa-pod
+spec:
+  serviceAccount: nazimsa
+  containers:
+  - name: sa-pod
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80

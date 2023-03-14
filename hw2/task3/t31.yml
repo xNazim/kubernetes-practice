@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: nazim
+  name: my-nginx1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-nginx1
+  template:
+    metadata:
+      labels:
+        app: my-nginx1
+    spec:
+      containers:
+      - name: my-nginx1
+        image: nginx
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: nazim
+  name: my-svc-task3
+spec:
+  selector:
+    app: my-nginx1
+  ports:
+  - port: 9000
+    targetPort: 80

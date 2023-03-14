@@ -1,0 +1,60 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: nazim
+# spec: {}
+# status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nodejs-svc
+  namespace: nazim
+spec:
+  type: NodePort
+  selector:
+    app: my-nodejs-app
+  ports:
+  - port: 8080
+    targetPort: 8085
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nodejs-app
+  namespace: nazim
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-nodejs-app
+  template:
+    metadata:
+      labels:
+        app: my-nodejs-app
+    spec:
+      nodeSelector:
+        node: worker1
+      containers:
+      - name: my-nodejs-app
+        image: vaheye/nodejsapp:1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8085
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8085
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8085
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          

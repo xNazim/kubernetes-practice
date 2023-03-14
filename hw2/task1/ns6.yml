@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: candoitnz
+
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: candoitnz
+  name: check-log-secret
+type: Opaque
+data:
+  name: TmF6aW0=
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: candoitnz
+  name: check-log-configmap
+data:
+  born: '2001'
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: bash
+  namespace: candoitnz
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: bash
+  template:
+    metadata: 
+      labels:
+        app: bash
+    spec:
+      containers:
+      - name: bash-conf
+        image: busybox
+        command: ['sh', '-c', 'echo "configmap: $CONFIGMAPVAR secret: $SECRETVAR"']
+        env:
+        - name: CONFIGMAPVAR
+          valueFrom:
+            configMapKeyRef:
+              name: check-log-configmap
+              key: born
+        - name: SECRETVAR
+          valueFrom:
+            secretKeyRef:
+              name: check-log-secret
+              key: name
+

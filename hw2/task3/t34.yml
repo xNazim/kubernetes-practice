@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customfront
+  namespace: nazim
+spec:
+  selector:
+    matchLabels:
+      app: customfront
+  template:
+    metadata:
+      labels:
+        app: customfront
+    spec:
+      containers:
+      - name: customfront
+        image: vaheye/nznginx:1.0
+        ports:
+        - containerPort: 80
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-svc-task3-4
+  namespace: nazim
+spec:
+  type: LoadBalancer
+  selector:
+    app: customfront
+  ports:
+  - name: customfront
+    port: 8082
+    targetPort: 80
+
+
+
+
+
+
+

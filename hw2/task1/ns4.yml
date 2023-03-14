@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: devnz
+  name: config-vol
+spec:
+  containers:
+    - name: busybox-config
+      image: busybox
+      command:
+        - "sh"
+        - "-c"
+        - "while true; do sleep 3600; done"
+      volumeMounts:
+        - mountPath: /config/configmap
+          name: configmap-volume
+        - mountPath: /config/secret-volume
+          name: secret-volume
+  volumes:
+    - name: configmap-volume
+      configMap:
+        name: my-configmap
+    - name: secret-volume
+      secret:
+        secretName: my-secret
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+  namespace: devnz
+data: 
+  key1: Hello World!
+  key2: |
+    Multiple
+    lines
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+  namespace: devnz
+type: Opaque
+data: 
+  secretkey1: aGVsbG8gYnJv
+  secretkey2: aGVsbG8gd29ybGQh

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: nazim
+  name: task2env2
+data:
+  MY_CONFIG: This is my config
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: env-pod2
+  namespace: nazim
+spec:
+  containers:
+  - name: env-pod2
+    image: busybox
+    env:
+    - name: MY_VAR
+      valueFrom: 
+        configMapKeyRef:
+          name: task2env2
+          key: MY_CONFIG
+    command:
+      - "sh"
+      - "-c"
+      - "echo $MY_VAR"
+
