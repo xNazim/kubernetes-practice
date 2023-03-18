@@ -1,0 +1,52 @@
+## Hardcode the resource names to something human friendly
+nameOverride: external-dns-gcp
+
+## Watch these resources for new DNS records
+sources:
+- service
+- ingress
+
+## use google as the dns provider
+provider: google
+google_project: eternal-bongo-379210
+
+# Specify the Google project (required when provider=google)
+# You'll need to create this secret containing your credentials.json
+# google:
+#   project: "google-project: eternal-bongo-379210"
+#   serviceAccountSecret: "external-dns-external-dns-gcp"
+
+## List of domains that can be managed. Should be managed by Google Cloud DNS
+domainFilters: ["nazimv.tk"]
+
+# These help tell which records are owned by external-dns.
+registry: "txt"
+txtOwnerId: "k8s"
+
+## Limit external-dns resources
+resources:
+  limits:
+    memory: 50Mi
+  requests:
+    memory: 50Mi
+    cpu: 10m
+
+## ensure RBAC is enabled
+rbac:
+  create: true
+  apiVersion: v1
+
+secretConfiguration:
+  enabled: true
+  mountPath: "/var/credentials"
+  subPath: ""
+  data:
+    credentials.json: |
+      service_account_credentials
+
+deploymentStrategy:
+  type: Recreate
+
+env:
+- name: GOOGLE_APPLICATION_CREDENTIALS
+  value: "/var/credentials/credentials.json"

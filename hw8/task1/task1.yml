@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tls-secret
+  namespace: nazim
+type: kubernetes.io/tls
+data:
+  tls.crt: |
+      LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVGekNDQXYrZ0F3SUJBZ0lVTFBRS0pDN1FJdXphejIyWWJiM2wyeFl5eTFFd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dab3hDekFKQmdOVkJBWVRBa3RuTVJBd0RnWURWUVFJREFkQ2FYTm9hMlZyTVJBd0RnWURWUVFIREFkQwphWE5vYTJWck1SSXdFQVlEVlFRS0RBbHpZVzF6WVd0aGJtRXhFakFRQmdOVkJBc01DWE5oYlhOaGEyRnVZVEViCk1Ca0dBMVVFQXd3U2JtRjZhVzB1YzJGdGMyRnJZVzVoTG0xc01TSXdJQVlKS29aSWh2Y05BUWtCRmhOellXMXoKWVd0aGJtRkFaMjFoYVd3dVkyOXRNQjRYRFRJek1ETXhOVEV6TkRnMU4xb1hEVEkwTURNeE5ERXpORGcxTjFvdwpnWm94Q3pBSkJnTlZCQVlUQWt0bk1SQXdEZ1lEVlFRSURBZENhWE5vYTJWck1SQXdEZ1lEVlFRSERBZENhWE5vCmEyVnJNUkl3RUFZRFZRUUtEQWx6WVcxellXdGhibUV4RWpBUUJnTlZCQXNNQ1hOaGJYTmhhMkZ1WVRFYk1Ca0cKQTFVRUF3d1NibUY2YVcwdWMyRnRjMkZyWVc1aExtMXNNU0l3SUFZSktvWklodmNOQVFrQkZoTnpZVzF6WVd0aApibUZBWjIxaGFXd3VZMjl0TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF1bERCCnFjZzhqYkZ0T1V3SWdLYlJlZXdxeUJsZ1ZScEtMYWN2RW9LSnB2dlNqSnM2RWExdnJTZEQrOFEwSTl5YWJ3cHUKQUlBZDBRNklkdm9mUkwvYnpwZ2pVTTNkVzQ1QTJYWEFSTWlSL0txQU1iZCtDNmdEQ0VGUTZpemRDajkzSlJsWAp1MnpnelZ2TjhpMGsvMlptdGVSci85M3haa2FSZVVrdVFEeTJuV08xck83VU54M1pkdWhwRGNFaEExMGU1dm5QCjR4L1ZYcEpZUVl6UUQ2V2RWYjV4SG8zTEkvYkJWMm9UUlRwYkR0dVdTeGlrelJVd1N5a0pKV3IwZ3N3TjhDNmkKOWlXRnVTdTZ3MzYwdUNUaFZkSmhFK00wQk9NWGRPNmlWbkJjUkcya1ljS1BLeUJIbGpCVmFlS0FLZVhhU1ZGMgpmVDBzbjNhcHUyNlVKR3hYdFFJREFRQUJvMU13VVRBZEJnTlZIUTRFRmdRVWpJUGplYmhmcTF2dzlZeFhxaUw4CjBPVURsZ2t3SHdZRFZSMGpCQmd3Rm9BVWpJUGplYmhmcTF2dzlZeFhxaUw4ME9VRGxna3dEd1lEVlIwVEFRSC8KQkFVd0F3RUIvekFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBRDhOZWVOUkJaSnNhN1JKSlJpZ0NIYndaSVhscwpxc2RwUUFKRlNpWEk5ZWVYQWRSSWJzZ3J2MzRlcmpHRHQ1K25yOUl3dEhraXV6NXFkT01pRSt0TVNBZVMwN25SClBwTlp6allOelA0c1kyRVhqYTBqQ3loeC9IUmJMbW1aUHRZNnRZSE9JRWY0RnJsK3RJNjdyUlVtandteE1IT0gKNTVjR0R3eW9HWGowUVFUdHp4OHljZW8wSzJ1bWpaZnJpeXIwdDJTemppUkY3clk5R1RrQ1VKQVRDQmRqWlV1TwowSVRJSy9GSVVLR3IwNDRqRzJML1VXanVCNkwwWFRjbVcvdTZFMXZlTXNENzM2RG9SV25UbUV5Y2ttOXI0eUJaCjlyV3hNQ1lPOGdCUWM5a09Hb0lGMEJZK3ZmODd6OFBZRm5scStWMUVXTkdza0Nzei9JWGtqdmJhSEE9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0t
+
+  tls.key: |
+       LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQzZVTUdweUR5TnNXMDUKVEFpQXB0RjU3Q3JJR1dCVkdrb3RweThTZ29tbSs5S01tem9SclcrdEowUDd4RFFqM0pwdkNtNEFnQjNSRG9oMgoraDlFdjl2T21DTlF6ZDFiamtEWmRjQkV5Skg4cW9BeHQzNExxQU1JUVZEcUxOMEtQM2NsR1ZlN2JPRE5XODN5CkxTVC9abWExNUd2LzNmRm1ScEY1U1M1QVBMYWRZN1dzN3RRM0hkbDI2R2tOd1NFRFhSN20rYy9qSDlWZWtsaEIKak5BUHBaMVZ2bkVlamNzajlzRlhhaE5GT2xzTzI1WkxHS1RORlRCTEtRa2xhdlNDekEzd0xxTDJKWVc1SzdyRApmclM0Sk9GVjBtRVQ0elFFNHhkMDdxSldjRnhFYmFSaHdvOHJJRWVXTUZWcDRvQXA1ZHBKVVhaOVBTeWZkcW03CmJwUWtiRmUxQWdNQkFBRUNnZ0VBUjM1TmtoVGdCNDhaMW02eXBJdGV2bVk5VkdOSWI5K1NyMG9ENmhwbEw4cFoKMU5LTHlkUy9rYllMaEVTWnJWa3RlWWFMQjI0aUF1S013dnJmbk1YeVZxaFNoT002R2JQUWRxR1VrZEJWRkp0bwpiYXQzbG9sMkFHanYzNnd2ZFlzODhPTjBvdHI0dUZTT0Jtd0VVbXk4NVBjdDZoVUVXTGFqZytMcytJRlRvYmpFCmtqSWlBb3NMZlBFWkkrQUh4b01FTVQrQlkyamJUYTJ5MG5NTTRrTm1GQk1ZcFo5eERtK3dzK2FWbDgwbWllZDIKa2MyMFBoYTBZNnQwcEh0UUxzRDRwTEllbUVkTWMxVGt5TTJLVXoyZ1NiWVMrSXgxcDgzYldCeWFQSjRGMkg2SQpkQUg3amFmYm82aUJLVEJ2RUV4TnUvMHpMMGR6S2tpSzQycU5RdnViMFFLQmdRRHp5bHJEZzlLYnMwVnEwWVQrCmlFOExPeG4xYUVzUlgxQkZXWkxiWnA1UkJyK1RTL0JrWEg2ZEF0TXUwN1FWV01oUjZ4YUxHRFh4U2ExM0ZEU3MKVlJFWGZZRkpmaEgxRXRuTHI2b3pDc3czZzc3WDRyZVU3MkRZc0ltSURSRzVBQy84UERhVXJKSjRXRXBIT3JhOQprMUN2NnUxVzJzNE5yTUhGVGlZV0xKdHE1d0tCZ1FERHBZTmVUY1ZXTWhucGRXN2Z3ZFk1UUpWRkxLc3ArT1ZQCm5kbE9UMXpON0I0MmRlV2NENmdKUWFtUk1JekRkZ0VGS3BVSXhRSHAxcHR6U01zNW52VTgxWU85OEdHeWdFWmUKV0ZZZnN3d29Rbm91Y1kySExlZUZtUng2RmZyUGdKK0pGOHk1NEllYmFWZ2tQSmVLWTN5aHkxMm9YU1R5WWtlTQp6Tlg3eGlGUkF3S0JnUURVb2ZVaVBITFFQTDlhR0o2QUJ0R3lnUHoyTDkzeHJBbHVRMTgwbjcrTCttL1RnRk9PCnBhSUZQamFGekQ1d3Mvd2Nmd2d0ajVOVS9hY2ZpbThhdENOeE1wVTJUWkJLQ2dRT2hRdlU4eUVGZHBKWTU3U3AKWVZRK0MxUVpaeFRESUNlNlA2WjNiRUZnVjltSllPdU1VOVgzYWRkU2Z3dGpuLzl1SU9oVlJOalZsd0tCZ0RpSgpDWThrdGhPVVlyeDl2TTVYK3dtTVNoWTFORGpxdllqbU9qZFE0NloxeHIxQ0VGbXFoSW80T1VIRlg4ZlR2N080CmZGeU9ZV0VyTEx5Qm1vaEtFTi9GYTA1bHVqV1VyOER2a2VPVEg3NDZoNGdJTkRlTjRrdE8xVlhLS0RIeUh5ZkUKZ3RwcnNZUU5TdlVkdFVTK1B2T2FDclJ1UmhEc3FYUmNkTEZPcmEzMUFvR0FZemRuaU9meUtyUzBnNmJ3MlV2dwpWTDZ5cUtYT0pIbkViK2taYVJIRGloR1RmZmJWK0RrbDRDRC8ybVp1WWhZZURuVVg1Y2xKU3ByZHZmeUt3NU9sCnVoN3JPTDRpVkQrZ3JmWnBFUHZ1T0FKZzlsanNhUG1ZK1pzM3IxQjVNV0RuR1FySitwMnBXRXNqbU1JQXRpVWUKVSttRW9EeU10UlE4VGgxV0pPeVlCekk9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+  namespace: nazim
+spec:
+  selector:
+    app: app1
+  ports:
+  - port: 9000
+    targetPort: 80
+  type: NodePort
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service2
+  namespace: nazim
+spec:
+  selector:
+    app: app2
+  ports:
+  - port: 9001
+    targetPort: 80
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: task1
+  namespace: nazim
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # cert-manager.io/issuer: "tls-cert-prod"
+  labels:
+    app: task1
+spec:
+  rules:
+  - host: nazim.samsakana.ml
+    http:
+      paths:
+      - pathType: Prefix
+        path: /test1
+        backend:
+          service:
+            name: service1
+            port: 
+              number: 9000
+      - pathType: Prefix
+        path: /test2
+        backend:
+          service:
+            name: service2
+            port: 
+              number: 9001
+  tls:
+  - hosts: 
+    - nazim.samsakana.ml
+    secretName: tls-secret
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 1pod
+  namespace: nazim
+  labels:
+    app: app1
+spec:
+  containers:
+  - name: 1pod
+    image: nginx
+    ports:
+      - containerPort: 80
+    command: 
+    - sh
+    - -c
+    - mkdir /usr/share/nginx/html/test1 && echo 'Hello from Nazim v1' > /usr/share/nginx/html/test1/index.html && nginx -g 'daemon off;'
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 2pod
+  namespace: nazim
+  labels:
+    app: app2
+spec:
+  containers:
+  - name: 2pod
+    image: nginx
+    ports:
+      - containerPort: 80
+    command: 
+    - sh
+    - -c
+    - mkdir /usr/share/nginx/html/test2 && echo 'Hello from Nazim v2' > /usr/share/nginx/html/test2/index.html && nginx -g 'daemon off;'
