@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+  namespace: nazim
+spec:
+  selector:
+    app: task11
+  ports:
+  - port: 4200
+    targetPort: 80
+  type: NodePort
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service2
+  namespace: nazim
+spec:
+  selector:
+    app: task12
+  ports:
+  - port: 8080
+    targetPort: 80
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: task1
+  namespace: nazim
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /foo
+        pathType: Prefix
+        backend:
+          service:
+            name: service1
+            port:
+              number: 4200
+      - path: /bar
+        pathType: Prefix
+        backend:
+          service:
+            name: service2
+            port:
+              number: 8080
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 1pod
+  namespace: nazim
+  labels:
+    app: task11
+spec:
+  containers:
+  - name: 1pod
+    image: nginx:1.23.3
+    ports:
+      - containerPort: 80
+    command: 
+    - sh
+    - -c
+    - mkdir /usr/share/nginx/html/foo && echo 'Hello from Nazim v1' > /usr/share/nginx/html/foo/index.html && nginx -g 'daemon off;'
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 2pod
+  namespace: nazim
+  labels:
+    app: task12
+spec:
+  containers:
+  - name: 2pod
+    image: nginx:1.23.3
+    ports:
+      - containerPort: 80
+    command: 
+    - sh
+    - -c
+    - mkdir /usr/share/nginx/html/bar && echo 'Hello from Nazim v2' > /usr/share/nginx/html/bar/index.html && nginx -g 'daemon off;'
+

@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-react1
+spec:
+  selector:
+    matchLabels:
+      app: node-react1
+  template:
+    metadata:
+      labels:
+        app: node-react1
+    spec:
+      containers:
+      - name: node-react1
+        image: us.gcr.io/eternal-bongo-379210/frontendnz:v1
+        ports:
+        - containerPort: 80
+        
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-react2
+spec:
+  selector:
+    matchLabels:
+      app: node-react2
+  template:
+    metadata:
+      labels:
+        app: node-react2
+    spec:
+      containers:
+      - name: node-react2
+        image: us.gcr.io/eternal-bongo-379210/backendnz:v1
+        env:
+          - name: PGHOST
+            valueFrom:
+              secretKeyRef:
+                name: postgresnz
+                key: host
+          - name: PGUSER
+            valueFrom:
+              secretKeyRef:
+                name: postgresnz
+                key: user
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgresnz
+                key: password
+          - name: PGDATABASE
+            valueFrom:
+              secretKeyRef:
+                name: postgresnz
+                key: db
+        ports:
+        - containerPort: 3000
+      # volumes:
+      # - name: app-vol
+      #   secret:
+      #     secretName: postgresnz
