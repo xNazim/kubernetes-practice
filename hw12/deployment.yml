@@ -34,6 +34,10 @@ spec:
       containers:
       - name: node-react2
         image: us.gcr.io/eternal-bongo-379210/backendnz:v1
+        volumeMounts:
+        - name: app-vol
+          readOnly: true
+          mountPath: "/etc/secret-volume"
         env:
           - name: PGHOST
             valueFrom:
@@ -57,7 +61,7 @@ spec:
                 key: db
         ports:
         - containerPort: 3000
-      # volumes:
-      # - name: app-vol
-      #   secret:
-      #     secretName: postgresnz
+      volumes:
+      - name: app-vol
+        secret:
+          secretName: postgresnz
