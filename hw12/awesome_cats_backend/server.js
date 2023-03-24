@@ -11,6 +11,7 @@ const score = require('./controllers/score');
 const profile = require('./controllers/profile');
 
 require('dotenv').config();
+console.log(process.env);
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 

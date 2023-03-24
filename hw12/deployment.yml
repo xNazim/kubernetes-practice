@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-react1
+  name: frontend
 spec:
   selector:
     matchLabels:
-      app: node-react1
+      app: frontend
   template:
     metadata:
       labels:
-        app: node-react1
+        app: frontend
     spec:
       containers:
-      - name: node-react1
+      - name: frontend
         image: us.gcr.io/eternal-bongo-379210/frontendnz:v1
         ports:
         - containerPort: 80
@@ -21,23 +21,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-react2
+  name: backend
 spec:
   selector:
     matchLabels:
-      app: node-react2
+      app: backend
   template:
     metadata:
       labels:
-        app: node-react2
+        app: backend
     spec:
       containers:
-      - name: node-react2
-        image: us.gcr.io/eternal-bongo-379210/backendnz:v1
-        volumeMounts:
-        - name: app-vol
-          readOnly: true
-          mountPath: "/etc/secret-volume"
+      - name: backend
+        image: us.gcr.io/eternal-bongo-379210/backendnz:v3
         env:
           - name: PGHOST
             valueFrom:
@@ -61,7 +57,4 @@ spec:
                 key: db
         ports:
         - containerPort: 3000
-      volumes:
-      - name: app-vol
-        secret:
-          secretName: postgresnz
+        resources:

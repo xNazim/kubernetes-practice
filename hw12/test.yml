@@ -8,10 +8,32 @@ metadata:
 spec:
   containers:
   - name: front
-    image: vaheye/backend:1
+    # image: us.gcr.io/eternal-bongo-379210/backendnz:v3
+    image: us.gcr.io/eternal-bongo-379210/frontendnz:v1
+    # env:
+    # - name: PGHOST
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: postgresnz
+    #       key: host
+    # - name: PGUSER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: postgresnz
+    #       key: user
+    # - name: PGPASSWORD
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: postgresnz
+    #       key: password
+    # - name: PGDATABASE
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: postgresnz
+    #       key: db
     resources:
     ports:
-      - containerPort: 3000
+      - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -19,9 +41,9 @@ metadata:
   name: myapp
   namespace: nazim
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: myapp
   ports:
-  - port: 8000
-    targetPort: 3000
+  - port: 8080
+    targetPort: 80
